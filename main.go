@@ -21,7 +21,7 @@ func main() {
 	routers.Init(router)
 
 	// 服务启动
-	err := router.Run(":8080")
+	err := router.Run(":8001")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -1,13 +1,14 @@
 # webcopy
  
  - [x] 网页版多图展示，一键生成全屏截图
- - [ ] 共享剪切板
+ - [x] 跨平台共享剪切板
+ - [ ] 剪切板支持多用户
 
 ## 网页版多图生成（本次会话有效，刷新即 discard）
 ![demo.png](https://github.com/guoruibiao/webcopy/blob/master/demo.png?raw=true)
-![demo.png](demo.png)
 
 
 ## 共享剪切板
 
 跨平台共享剪切板。
+![clipboard-demo.jpg](https://github.com/guoruibiao/webcopy/blob/master/clipboard-demo.jpg?raw=true)
