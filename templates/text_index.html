@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Text Index</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+        }
+        textarea {
+            width: 90%;
+            height: auto;
+            margin-left: 4%;
+        }
+        .container {
+            width: 100%;
+            height: auto;
+        }
+        button{
+            width: 40%;
+            height: auto;
+            margin-top: 3px;
+            margin-left: 6%;
+            float: left;
+        }
+
+        .subcontainer {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <fieldset>
+            <legend>跨平台 剪切板</legend>
+            <div class="subcontainer">
+                <button id="btn_update">创建/更新</button>
+                <button class="btn" id="btn_copy" data-clipboard-target="#text" data-clipboard-action="copy">一键复制</button>
+            </div>
+            <br><br>
+            <textarea id="text" rows="28">
+                1. ajax 支持
+                2. 手机适配
+            </textarea>
+        </fieldset>
+    </div>
+</body>
+<script src="/statics/js/jquery-3.4.1.min.js"></script>
+<script src="/statics/js/clipboard.min.js"></script>
+<script>
+    $(function () {
+        init();
+        $("#btn_update").click(function () {
+            $.ajax({
+                url: "/text/update",
+                method: "POST",
+                data: {"content": $("#text").val()},
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        });
+
+        $("#btn_copy").click(function () {
+            // 单纯使用 new Clipboard 会与全局的 Clipboard 冲突
+            var clipboard = new ClipboardJS('.btn');
+            clipboard.on('success', function(e) {
+                alert("复制到剪切板成功");
+            });
+
+            clipboard.on('error', function(e) {
+                console.log(e);
+            });
+        });
+    });
+
+    /**
+     * 当前页码
+     */
+    function init() {
+        $.ajax({
+            url: "/text/get",
+            method: "GET",
+            success: function (res) {
+                console.log(res)
+                $("#text").val(res.data.content)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    }
+</script>
+</html>
